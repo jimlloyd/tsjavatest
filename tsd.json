@@ -1,0 +1,15 @@
+{
+  "version": "v4",
+  "repo": "RedSeal-co/DefinitelyTyped",
+  "ref": "prod",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "node/node.d.ts": {
+      "commit": "16603733c8080bd05e556acb8b47ca5ce902c081"
+    },
+    "bluebird/bluebird.d.ts": {
+      "commit": "16603733c8080bd05e556acb8b47ca5ce902c081"
+    }
+  }
+}
