@@ -9,13 +9,17 @@ _java.asyncOptions = {
     promiseSuffix: "P",
     promisify: BluePromise.promisify
 };
-var Module;
-(function (Module) {
+_java.registerClientP(function () {
+    // TODO: If this were a module that required adding anything to the classpath, we'd do it here.
+    return BluePromise.resolve();
+});
+var _Module;
+(function (_Module) {
     'use strict';
     function ensureJvm() {
         return _java.ensureJvm();
     }
-    Module.ensureJvm = ensureJvm;
+    _Module.ensureJvm = ensureJvm;
     var shortToLongMap = {
         // TODO: All short to full name mappings
         'Object': 'java.lang.Object',
@@ -28,7 +32,7 @@ var Module;
         }
         return _java.import(className);
     }
-    Module.importClass = importClass;
+    _Module.importClass = importClass;
     // TODO: All overloads of newInstanceSync
     function newInstanceSync(className) {
         var args = [];
@@ -38,7 +42,7 @@ var Module;
         args.unshift(className);
         return _java.newInstanceSync.apply(_java, args);
     }
-    Module.newInstanceSync = newInstanceSync;
-})(Module || (Module = {}));
-module.exports = Module;
+    _Module.newInstanceSync = newInstanceSync;
+})(_Module || (_Module = {}));
+module.exports = _Module;
 //# sourceMappingURL=reflection.js.map

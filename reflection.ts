@@ -12,6 +12,11 @@ _java.asyncOptions = {
     promisify: BluePromise.promisify
 };
 
+_java.registerClientP((): Promise<void> => {
+  // TODO: If this were a module that required adding anything to the classpath, we'd do it here.
+  return BluePromise.resolve();
+});
+
 interface Dictionary {
   [index: string]: string;
 }
