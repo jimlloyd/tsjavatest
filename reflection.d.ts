@@ -1,7 +1,16 @@
 /// <reference path="typings/java/java.d.ts" />
 /// <reference path="typings/bluebird/bluebird.d.ts" />
-export import java = require('java');
-export declare module JavaReflection {
+export = Module;
+declare module Module {
+    function ensureJvm(): Promise<void>;
+    function importClass(className: 'Object'): java.lang.Object.Static;
+    function importClass(className: 'String'): java.lang.String.Static;
+    function importClass(className: 'Long'): java.lang.Long.Static;
+    function importClass(className: 'java.lang.Object'): java.lang.Object.Static;
+    function importClass(className: 'java.lang.String'): java.lang.String.Static;
+    function importClass(className: 'java.lang.Long'): java.lang.Long.Static;
+    function importClass(className: string): any;
+    function newInstanceSync(className: string, ...args: any[]): any;
     interface longValue_t extends Number {
         longValue: string;
     }
@@ -20,7 +29,7 @@ export declare module JavaReflection {
     export import Object = java.lang.Object;
     export import String = java.lang.String;
     module java.lang {
-        interface Boolean extends JavaReflection.java.lang.Object {
+        interface Boolean extends java.lang.Object {
             booleanValueA(cb: Callback<boolean>): void;
             booleanValue(): boolean;
             booleanValueP(): Promise<boolean>;
@@ -99,7 +108,7 @@ export declare module JavaReflection {
         }
     }
     module java.lang {
-        interface Class extends JavaReflection.java.lang.Object {
+        interface Class extends java.lang.Object {
             asSubclassA(arg0: Class, cb: Callback<Class>): void;
             asSubclass(arg0: Class): Class;
             asSubclassP(arg0: Class): Promise<Class>;
@@ -331,7 +340,7 @@ export declare module JavaReflection {
         }
     }
     module java.lang {
-        interface Long extends JavaReflection.java.lang.Object {
+        interface Long extends java.lang.Object {
             byteValueA(cb: Callback<object_t>): void;
             byteValue(): object_t;
             byteValueP(): Promise<object_t>;
@@ -541,7 +550,7 @@ export declare module JavaReflection {
         }
     }
     module java.lang {
-        interface String extends JavaReflection.java.lang.Object {
+        interface String extends java.lang.Object {
             charAtA(arg0: object_t, cb: Callback<object_t>): void;
             charAt(arg0: object_t): object_t;
             charAtP(arg0: object_t): Promise<object_t>;

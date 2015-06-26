@@ -2,9 +2,57 @@
 /// <reference path="typings/java/java.d.ts" />
 /// <reference path="typings/bluebird/bluebird.d.ts" />
 
-export import java = require('java');
-export module JavaReflection {
+import _java = require('java');
+import BluePromise = require('bluebird');
+
+_java.asyncOptions = {
+    syncSuffix: "",
+    asyncSuffix: "A",
+    promiseSuffix: "P",
+    promisify: BluePromise.promisify
+};
+
+interface Dictionary {
+  [index: string]: string;
+}
+
+export = Module;
+
+module Module {
   'use strict';
+
+  export function ensureJvm(): Promise<void> {
+    return _java.ensureJvm();
+  }
+
+  var shortToLongMap: Dictionary = {
+    // TODO: All short to full name mappings
+    'Object': 'java.lang.Object',
+    'String': 'java.lang.String',
+    'Long': 'java.lang.Long'
+  };
+
+  // TODO: All short class name overloads of importClass
+  export function importClass(className: 'Object'): java.lang.Object.Static;
+  export function importClass(className: 'String'): java.lang.String.Static;
+  export function importClass(className: 'Long'): java.lang.Long.Static;
+  // TODO: All full class path overloads of importClass
+  export function importClass(className: 'java.lang.Object'): java.lang.Object.Static;
+  export function importClass(className: 'java.lang.String'): java.lang.String.Static;
+  export function importClass(className: 'java.lang.Long'): java.lang.Long.Static;
+  export function importClass(className: string): any;
+  export function importClass(className: string): any {
+    if (className in shortToLongMap) {
+      className = shortToLongMap[className];
+    }
+    return _java.import(className);
+  }
+
+  // TODO: All overloads of newInstanceSync
+  export function newInstanceSync(className: string, ...args: any[]): any {
+    args.unshift(className);
+    return _java.newInstanceSync.apply(_java, args);
+  }
 
   // Node-java has special handling for methods that return long or java.lang.Long,
   // returning a Javascript Number but with an additional property longValue.
@@ -39,6 +87,7 @@ export module JavaReflection {
 
   export import Callback = Java.Callback;
 
+  // TODO: export short name of every Java class
   export import Boolean = java.lang.Boolean;
   export import Class = java.lang.Class;
   export import Long = java.lang.Long;
@@ -46,7 +95,7 @@ export module JavaReflection {
   export import String = java.lang.String;
 
   export module java.lang {
-    export interface Boolean extends JavaReflection.java.lang.Object {
+    export interface Boolean extends java.lang.Object {
       // public boolean java.lang.Boolean.booleanValue()
       booleanValueA( cb: Callback<boolean>): void;
       booleanValue(): boolean;
@@ -148,7 +197,7 @@ export module JavaReflection {
   }
 
   export module java.lang {
-    export interface Class extends JavaReflection.java.lang.Object {
+    export interface Class extends java.lang.Object {
       // public <U> java.lang.Class<? extends U> java.lang.Class.asSubclass(java.lang.Class<U>)
       asSubclassA(arg0: Class, cb: Callback<Class>): void;
       asSubclass(arg0: Class): Class;
@@ -453,7 +502,7 @@ export module JavaReflection {
   }
 
   export module java.lang {
-    export interface Long extends JavaReflection.java.lang.Object {
+    export interface Long extends java.lang.Object {
       // public byte java.lang.Long.byteValue()
       byteValueA( cb: Callback<object_t>): void;
       byteValue(): object_t;
@@ -727,7 +776,7 @@ export module JavaReflection {
   }
 
   export module java.lang {
-    export interface String extends JavaReflection.java.lang.Object {
+    export interface String extends java.lang.Object {
       // public char java.lang.String.charAt(int)
       charAtA(arg0: object_t, cb: Callback<object_t>): void;
       charAt(arg0: object_t): object_t;
@@ -1060,5 +1109,4 @@ export module JavaReflection {
       }
     }
   }
-
 }
