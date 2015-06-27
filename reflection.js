@@ -13,13 +13,13 @@ _java.registerClientP(function () {
     // TODO: If this were a module that required adding anything to the classpath, we'd do it here.
     return BluePromise.resolve();
 });
-var _Module;
-(function (_Module) {
+var Module;
+(function (Module) {
     'use strict';
     function ensureJvm() {
         return _java.ensureJvm();
     }
-    _Module.ensureJvm = ensureJvm;
+    Module.ensureJvm = ensureJvm;
     var shortToLongMap = {
         // TODO: All short to full name mappings
         'Object': 'java.lang.Object',
@@ -32,7 +32,7 @@ var _Module;
         }
         return _java.import(className);
     }
-    _Module.importClass = importClass;
+    Module.importClass = importClass;
     // TODO: All overloads of newInstanceSync
     function newInstanceSync(className) {
         var args = [];
@@ -42,7 +42,7 @@ var _Module;
         args.unshift(className);
         return _java.newInstanceSync.apply(_java, args);
     }
-    _Module.newInstanceSync = newInstanceSync;
-})(_Module || (_Module = {}));
-module.exports = _Module;
+    Module.newInstanceSync = newInstanceSync;
+})(Module || (Module = {}));
+module.exports = Module;
 //# sourceMappingURL=reflection.js.map

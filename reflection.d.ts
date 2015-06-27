@@ -1,7 +1,7 @@
 /// <reference path="typings/java/java.d.ts" />
 /// <reference path="typings/bluebird/bluebird.d.ts" />
-export = _Module;
-declare module _Module {
+export = Module;
+declare module Module {
     function ensureJvm(): Promise<void>;
     function importClass(className: 'Object'): java.lang.Object.Static;
     function importClass(className: 'String'): java.lang.String.Static;
